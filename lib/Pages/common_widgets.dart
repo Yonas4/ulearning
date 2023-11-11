@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/Value/colors.dart';
 
-AppBar buildAppBar(BuildContext context) {
+AppBar buildAppBar(BuildContext context, String title) {
   return AppBar(
     actions: [
       GestureDetector(
@@ -13,6 +13,12 @@ AppBar buildAppBar(BuildContext context) {
         child: const Icon(Icons.settings),
       )
     ],
+    leading: title == 'Log In'
+        ? null
+        : GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },child:const Icon(Icons.arrow_back_ios)),
     centerTitle: true,
     bottom: PreferredSize(
       preferredSize: const Size.fromHeight(1.0),
@@ -22,7 +28,7 @@ AppBar buildAppBar(BuildContext context) {
       ),
     ),
     title: Text(
-      'Log In',
+      title,
       style: TextStyle(
           color: AppColors.primaryText,
           fontSize: 15.sp,

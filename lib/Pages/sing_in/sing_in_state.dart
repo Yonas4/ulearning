@@ -1,9 +1,11 @@
 class SingInState {
-  SingInState init() {
-    return SingInState();
-  }
+  final String email;
+  final String password;
 
-  SingInState clone() {
-    return SingInState();
+  const SingInState({this.email = '', this.password = ''});
+
+    SingInState copyWith({String? email, String? password}) {
+    return SingInState(
+        email: email ?? this.email, password: password ?? this.password);
   }
 }

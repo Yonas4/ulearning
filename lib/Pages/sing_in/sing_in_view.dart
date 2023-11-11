@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning/Pages/sing_in/widgets/sing_in_widget.dart';
+import 'package:ulearning/Pages/common_widgets.dart';
+import 'package:ulearning/Pages/sing_in/sing_in_controller.dart';
+import 'package:ulearning/Pages/sing_in/sing_in_state.dart';
 import 'package:ulearning/localization/app_localizations.dart';
 
 import 'sing_in_bloc.dart';
@@ -12,21 +14,20 @@ class SingInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => SingInBloc()..add(InitEvent()),
-      child: Builder(builder: (context) => _buildPage(context)),
+    return BlocBuilder<SingInBloc, SingInState>(
+      builder: (context, state) {
+        return _buildPage(context, state);
+      },
     );
   }
 
-  Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<SingInBloc>(context);
-
+  Widget _buildPage(BuildContext context, SingInState state) {
     return Container(
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: buildAppBar(context),
+          appBar: buildAppBar(context,'Log In'),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,18 +36,31 @@ class SingInPage extends StatelessWidget {
                 Center(child: reusableText('loginMsg1'.tr(context))),
                 Container(
                   margin: EdgeInsets.only(top: 36.h),
-                  padding: EdgeInsets.only(left: 25.w,right: 25.w),
+                  padding: EdgeInsets.only(left: 25.w, right: 25.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reusableText('email'.tr(context)),
-                      SizedBox(height:5.h),
-                      buildTextField('Enter your Email', 'email','user'),
+                      SizedBox(height: 5.h),
+                      buildTextField('Enter your Email', 'email', 'user',
+                          (value) {
+                        context.read<SingInBloc>().add(EmailEvent(value));
+                      }),
                       reusableText('password'.tr(context)),
-                      buildTextField('Email', 'password','user'),
+                      buildTextField('Enter your password', 'password', 'lock',
+                          (value) {
+                        context.read<SingInBloc>().add(PasswordEvent(value));
+                      }),
                       forgotPassword('Forgot Password ?'),
-                      buildLoginRegButton('Log In','login'),
-                      buildLoginRegButton('LogIn','register'),
+                      buildLoginRegButton('Log In', 'login', () {
+                        SingInController(context: context)
+                            .handelSingIn('email');
+
+                      }),
+                      buildLoginRegButton('Sing Up', 'register', () {
+                        Navigator.pushNamed(context, 'register');
+
+                      }),
                     ],
                   ),
                 )

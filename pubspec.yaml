@@ -31,6 +31,8 @@ dependencies:
   cloud_firestore: ^4.9.3
   shared_preferences:
   dots_indicator:
+  firebase_auth: ^4.10.0
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:

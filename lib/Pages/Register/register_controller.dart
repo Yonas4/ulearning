@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ulearning/Pages/Register/register_bloc.dart';
+import 'package:ulearning/Pages/Profile/Settings/localization/app_localizations.dart';
+import 'package:ulearning/Pages/Register/bloc/register_bloc.dart';
+import 'package:ulearning/common/Value/constant.dart';
 import 'package:ulearning/common/Widgets/flutter_toast.dart';
 
 class RegisterController {
@@ -17,19 +19,19 @@ class RegisterController {
     String rePassword = state.confirmPassword;
 
     if (userName.isEmpty) {
-      toastInfo(message: 'User Name can not be empty');
+      toastInfo(message: 'name_empty'.tr(context));
       return;
     }
     if (email.isEmpty) {
-      toastInfo(message: 'Email can not be empty');
+      toastInfo(message: 'email_empty'.tr(context));
       return;
     }
     if (password.isEmpty) {
-      toastInfo(message: 'Password can not be empty');
+      toastInfo(message: 'pass_empty'.tr(context));
       return;
     }
     if (rePassword.isEmpty) {
-      toastInfo(message: 'Re-Password can not be empty');
+      toastInfo(message: 'conf_pass_empty'.tr(context));
       return;
     }
     try {
@@ -40,20 +42,20 @@ class RegisterController {
         await credential.user?.sendEmailVerification();
         await credential.user?.updateDisplayName(userName);
 
-        toastInfo(
-            message:
-                'an email has been sent to your registered email. to activate it please check your email box and click on link');
+        String photoUrl = '${AppConstant.SERVER_API_URL}uploads/default.png';
+        credential.user?.updatePhotoURL(photoUrl);
+        toastInfo(message: 'register_success'.tr(context));
         Navigator.pop(context);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        toastInfo(message: 'the password provided is too weak');
+        toastInfo(message: 'weak_password'.tr(context));
         return;
       } else if (e.code == 'email-already-in-use') {
-        toastInfo(message: 'the email already in use');
+        toastInfo(message: 'email_already_in_use'.tr(context));
         return;
       } else if (e.code == 'invalid-email') {
-        toastInfo(message: 'the email is invalid');
+        toastInfo(message: 'invalid_email_register'.tr(context));
         return;
       }
     }

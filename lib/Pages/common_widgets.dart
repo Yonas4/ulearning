@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning/common/Routes/names.dart';
 
 import '../../../common/Value/colors.dart';
 
@@ -8,7 +9,7 @@ AppBar buildAppBar(BuildContext context, String title) {
     actions: [
       GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed('setting');
+          Navigator.of(context).pushNamed(AppRoutes.SETTING);
         },
         child: const Icon(Icons.settings),
       )
@@ -40,7 +41,7 @@ AppBar buildAppBar(BuildContext context, String title) {
 Widget buildThirdPartyLogin(BuildContext context) {
   return Container(
     margin: EdgeInsets.only(top: 40.h, bottom: 40.h),
-    padding: EdgeInsets.only(left: 25.w, right: 25.w),
+    padding: EdgeInsets.only(left: 50.w, right: 50.w),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [

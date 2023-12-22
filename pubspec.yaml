@@ -33,6 +33,8 @@ dependencies:
   dots_indicator:
   firebase_auth: ^4.10.0
   fluttertoast: ^8.2.2
+  flutter_easyloading: ^3.0.5
+  dio: ^5.4.0
 
 dev_dependencies:
   flutter_test:
@@ -49,4 +51,7 @@ flutter:
     - assets/lang/ar.json
     - assets/images/
     - assets/icons/
+    - assets/icons/Image_1.png
+    - assets/icons/Image_2.png
+    - assets/icons/image_3.png
     - assets/fonts/

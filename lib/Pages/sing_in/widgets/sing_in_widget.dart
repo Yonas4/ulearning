@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning/common/Routes/names.dart';
 
 import '../../../common/Value/colors.dart';
 
@@ -8,7 +9,7 @@ AppBar buildAppBar(BuildContext context) {
     actions: [
       GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed('setting');
+          Navigator.of(context).pushNamed(AppRoutes.SETTING);
         },
         child: const Icon(Icons.settings),
       )
